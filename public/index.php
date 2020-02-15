@@ -7,9 +7,12 @@ use App\Format\XML;
 use App\Format\YAML;
 
 
-print_r("Namespaces");
+/*print_r("Namespaces");*/
 
-$json = new JSON();
+$json = new JSON([
+    "key" => "value",
+    "another_key" => "another_value"
+    ]);
 $xml = new XML();
 $yaml = new YAML();
 
@@ -25,6 +28,14 @@ $xml = new F\XML();*/
 
 /*use App\Format\{JSON, XML, YAML};*/
 
-print_r($json);
-print_r($xml);
-print_r($yaml);
+var_dump($json);
+echo '<br>';
+var_dump($json->convert());
+echo '<br>';
+var_dump(JSON::DATA);
+echo '<br>';
+var_dump(JSON::convertData());
+echo '<br>';
+var_dump($xml);
+echo '<br>';
+var_dump($yaml);
