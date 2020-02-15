@@ -13,29 +13,23 @@ $json = new JSON([
     "key" => "value",
     "another_key" => "another_value"
     ]);
-$xml = new XML();
-$yaml = new YAML();
+/*var_dump($json);
+echo '<br>';*/
+/*var_dump($json->convert());
+echo '<br>';*/
 
-/*use App\Format;
-$json = new Format\JSON();
-$xml = new Format\XML();
-$yaml = new Format\YAML();*/
+// $json->data = [];
 
-/*use App\Format as F;
-$json = new F\JSON();
-$yaml = new F\YAML();
-$xml = new F\XML();*/
-
-/*use App\Format\{JSON, XML, YAML};*/
-
-var_dump($json);
+var_dump($json->getData());
 echo '<br>';
+// $json->setData([]);
 var_dump($json->convert());
 echo '<br>';
-var_dump(JSON::DATA);
+var_dump((string)$json);
 echo '<br>';
-var_dump(JSON::convertData());
-echo '<br>';
-var_dump($xml);
-echo '<br>';
-var_dump($yaml);
+
+/*
+var_dump($json->convert());
+echo '<br>';*/
+
+
