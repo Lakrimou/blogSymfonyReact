@@ -20,10 +20,10 @@ abstract class BaseFormat
         $this->data = $data;
     }
 
-    public function convert()
-    {
+    public abstract function convert();
+    /*{
         return 'i\'m not converting anything';
-    }
+    }*/
 
     public function __toString()
     {
