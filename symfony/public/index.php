@@ -5,8 +5,10 @@ require __DIR__.'/../vendor/autoload.php';
 use App\Format\JSON;
 use App\Format\XML;
 use App\Format\YAML;
+use App\Format\BaseFormat;
 
-print_r('inheritance');
+print_r("Abstract Class\n\n");
+echo '<br>';
 
 
 $data = [
@@ -21,7 +23,8 @@ echo '<br>';
 $xml = new XML($data);
 echo '<br>';
 $yml = new YAML($data);
-
+echo '<br>';
+$base = new BaseFormat($data);
 
 
 var_dump($json);
@@ -30,6 +33,7 @@ var_dump($xml);
 echo '<br>';
 var_dump($yml);
 echo '<br>';
+var_dump($base);
 echo '<br>';
 
 
@@ -38,4 +42,5 @@ echo '<br>';
 var_dump($xml->convert());
 echo '<br>';
 var_dump($yml->convert());
-
+echo '<br>';
+var_dump($base->convert());
