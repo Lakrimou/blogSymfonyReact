@@ -35,7 +35,7 @@ class YAML extends BaseFormat implements NamedFormatInterface {
         return $result;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'YML';
     }

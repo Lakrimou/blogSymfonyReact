@@ -4,5 +4,5 @@ namespace App\Format;
 
 interface NamedFormatInterface
 {
-    public function getName();
+    public function getName(): string;
 }

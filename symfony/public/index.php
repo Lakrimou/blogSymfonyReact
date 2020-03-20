@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 require __DIR__.'/../vendor/autoload.php';
 
 use App\Format\JSON;
@@ -9,9 +9,34 @@ use App\Format\BaseFormat;
 use App\Format\FromStringInterface;
 use App\Format\NamedFormatInterface;
 
-print_r("Interfaces\n\n");
+print_r("Typed arguments & return types \n\n");
 echo '<br>';
 
+function convertData(BaseFormat $format) {
+    return $format->convert();
+}
+
+function getFormatName(NamedFormatInterface $format): string
+{
+    return $format->getName();
+}
+
+//? make return type optional
+
+function getFormatByName(array $formats, string $name): ?BaseFormat
+{
+    foreach ($formats as $format){
+        if ($format instanceof NamedFormatInterface &&  $name === $format->getName()) {
+            return $format;
+        }
+    }
+
+    return null;
+}
+
+function justDumpData(BaseFormat $format): void {
+    var_dump($format->convert());
+}
 
 $data = [
     "name" => "Akrem",
@@ -19,46 +44,14 @@ $data = [
 ];
 
 var_dump($data);
+echo '<br><br>';
 
-$json = new JSON($data);
-$xml = new XML($data);
-$yml = new YAML($data);
+$formats = [
+    new JSON($data),
+    new XML($data),
+    new YAML($data),
+];
 
-/*$base = new BaseFormat($data);*/
-
-
-/*var_dump($json);
-echo '<br>';
-var_dump($xml);
-echo '<br>';
-var_dump($yml);
-echo '<br>';*/
-/*var_dump($base);
-echo '<br>';*/
-
-/*var_dump($json->convert());
-echo '<br>';
-var_dump($xml->convert());
-echo '<br>';
-var_dump($yml->convert());
-echo '<br>';*/
-
-$formats = [$json, $xml, $yml];
-
-foreach ($formats as $format) {
-
-    if ($format instanceof NamedFormatInterface) {
-        print_r($format->getName());
-    }
-
-    echo '<br>';
-    var_dump(get_class($format));
-    echo '<br>';
-    var_dump($format->convert());
-
-    if ($format instanceof FromStringInterface) {
-        var_dump($format->convertFromString('{"name":"John", "surname":"Doe"}'));
-    }
-}
-
-/*var_dump($base->convert());*/
+var_dump(getFormatByName($formats, 'JSON'));
+echo '<br><br>';
+justDumpData($formats[1]);

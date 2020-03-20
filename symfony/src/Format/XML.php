@@ -17,7 +17,7 @@ class XML extends BaseFormat implements NamedFormatInterface {
         return htmlspecialchars($result);
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'XML';
     }
