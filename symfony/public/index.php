@@ -6,8 +6,10 @@ use App\Format\JSON;
 use App\Format\XML;
 use App\Format\YAML;
 use App\Format\BaseFormat;
+use App\Format\FromStringInterface;
+use App\Format\NamedFormatInterface;
 
-print_r("Abstract Class\n\n");
+print_r("Interfaces\n\n");
 echo '<br>';
 
 
@@ -19,28 +21,44 @@ $data = [
 var_dump($data);
 
 $json = new JSON($data);
-echo '<br>';
 $xml = new XML($data);
-echo '<br>';
 $yml = new YAML($data);
-echo '<br>';
+
 /*$base = new BaseFormat($data);*/
 
 
-var_dump($json);
+/*var_dump($json);
 echo '<br>';
 var_dump($xml);
 echo '<br>';
 var_dump($yml);
-echo '<br>';
+echo '<br>';*/
 /*var_dump($base);
 echo '<br>';*/
 
-
-var_dump($json->convert());
+/*var_dump($json->convert());
 echo '<br>';
 var_dump($xml->convert());
 echo '<br>';
 var_dump($yml->convert());
-echo '<br>';
+echo '<br>';*/
+
+$formats = [$json, $xml, $yml];
+
+foreach ($formats as $format) {
+
+    if ($format instanceof NamedFormatInterface) {
+        print_r($format->getName());
+    }
+
+    echo '<br>';
+    var_dump(get_class($format));
+    echo '<br>';
+    var_dump($format->convert());
+
+    if ($format instanceof FromStringInterface) {
+        var_dump($format->convertFromString('{"name":"John", "surname":"Doe"}'));
+    }
+}
+
 /*var_dump($base->convert());*/

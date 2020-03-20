@@ -25,6 +25,8 @@ abstract class BaseFormat
         return 'i\'m not converting anything';
     }*/
 
+    //public abstract function convertFromString();
+
     public function __toString()
     {
         return $this->convert();

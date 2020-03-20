@@ -4,7 +4,7 @@ namespace App\Format;
 
 use App\Format\BaseFormat;
 
-class YAML extends BaseFormat{
+class YAML extends BaseFormat implements NamedFormatInterface {
 
     /*private $data;
 
@@ -35,4 +35,8 @@ class YAML extends BaseFormat{
         return $result;
     }
 
+    public function getName()
+    {
+        return 'YML';
+    }
 }

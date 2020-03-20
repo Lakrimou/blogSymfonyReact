@@ -4,29 +4,20 @@ namespace App\Format;
 
 use App\Format\BaseFormat;
 
-class JSON extends BaseFormat {
-    /*const DATA = [
-        "success" => true
-    ];
-    protected $data;
-
-    public function __construct($data)
-    {
-        $this->data = $data;
-    }
-
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    public function setData($data)
-    {
-        $this->data = $data;
-    }*/
+class JSON extends BaseFormat implements FromStringInterface, NamedFormatInterface {
 
     public function convert()
     {
         return json_encode($this->data);
+    }
+
+    public function convertFromString($string)
+    {
+        return json_decode($string, true);
+    }
+
+    public function getName()
+    {
+        return 'JSON';
     }
 }

@@ -4,26 +4,7 @@ namespace App\Format;
 
 use App\Format\BaseFormat;
 
-class XML extends BaseFormat{
-
-    /*private $data;
-
-    public function __construct($data)
-    {
-        $this->data = $data;
-    }
-
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    public function setData($data)
-    {
-        $this->data = $data;
-    }
-
-    */
+class XML extends BaseFormat implements NamedFormatInterface {
 
     public function convert()
     {
@@ -34,5 +15,10 @@ class XML extends BaseFormat{
         }
 
         return htmlspecialchars($result);
+    }
+
+    public function getName()
+    {
+        return 'XML';
     }
 }
