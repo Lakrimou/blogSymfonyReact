@@ -8,8 +8,9 @@ use App\Format\YAML;
 use App\Format\BaseFormat;
 use App\Format\FromStringInterface;
 use App\Format\NamedFormatInterface;
+use App\Serializer;
 
-print_r("Reflections \n\n");
+print_r("Dependency Injection \n\n");
 echo '<br>';
 
 $data = [
@@ -20,26 +21,11 @@ $data = [
 var_dump($data);
 echo '<br><br>';
 
-$formats = [
-    new JSON($data),
-    new XML($data),
-    new YAML($data),
-];
+$serilizer = new Serializer(new XML());
+var_dump($serilizer->serialize($data));
 
-$class = new ReflectionClass(JSON::class);
-var_dump($class);
-echo '<br>';
-$method = $class->getConstructor();
-var_dump($method);
-echo '<br>';
-$parameters = $method->getParameters();
-var_dump($parameters);
-echo '<br>';
-foreach ($parameters as $parameter) {
-    $type = $parameter->getType();
-    var_dump((string)$type);
-    echo '<br>';
-    var_dump($type->isBuiltin());
-    var_dump($parameter->allowsNull());
-    var_dump($parameter->getDefaultValue());
-}
+// $formats = [
+//     new JSON(),
+//     new XML(),
+//     new YAML(),
+// ];

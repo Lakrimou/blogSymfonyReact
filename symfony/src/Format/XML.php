@@ -4,9 +4,9 @@ namespace App\Format;
 
 use App\Format\BaseFormat;
 
-class XML extends BaseFormat implements NamedFormatInterface {
+class XML extends BaseFormat implements NamedFormatInterface, FormatInterface {
 
-    public function convert()
+    public function convert(): string
     {
         $result = '';
 
