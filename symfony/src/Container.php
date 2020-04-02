@@ -62,7 +62,7 @@ class Container
         ];
     }
 
-    public function loadServices(string $namespace): void
+    public function loadServices(string $namespace, ?\Closure $callback = null): void
     {
         $baseDir = __DIR__.'/'; // /var/www/html/training/symfony/src/
         $actualDirectory = str_replace('\\', '/', $namespace); 
@@ -123,7 +123,9 @@ class Container
                     return new $serviceName(...$serviceParameters);
                 }
             });
+            if($callback) {
+                $callback($serviceName, $class);
+            }
         }
-        //die;
     }
 }
