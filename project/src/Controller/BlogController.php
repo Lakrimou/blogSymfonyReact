@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\BlogPost;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -47,7 +50,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="blog_by_id", requirements={"id"="\d+"})
+     * @Route("/page/{id}", name="blog_by_id", requirements={"id"="\d+"})
      */
     public function post($id)
     {
@@ -57,7 +60,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}", name="blog_by_slug")
+     * @Route("/page/{slug}", name="blog_by_slug")
      */
     public function postBySLug($slug)
     {
@@ -66,5 +69,15 @@ class BlogController extends AbstractController
         );
     }
 
-
+    /**
+     * @Route("/add", name="blog_add", methods={"POST"})
+     */
+    public function add(Request $request, DocumentManager $dm)
+    {
+        $serializer = $this->get('serializer');
+        $blogPost = $serializer->deserialize($request->getContent(), BlogPost::class, 'json');
+        $dm->persist($blogPost);
+        $dm->flush();
+        return new JsonResponse($blogPost);
+    }
 }
