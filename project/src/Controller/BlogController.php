@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Document\BlogPost;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,22 +37,21 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/page/{id}", name="blog_by_id")
+     * @ParamConverter("post", class="App:BlogPost")
      */
-    public function post($id, DocumentManager $dm)
+    public function post($post, DocumentManager $dm)
     {
-        return $this->json(
-            $dm->getRepository(BlogPost::class)->findBy(['id'=>$id])
-        );
+        return $this->json($post);
+
     }
 
     /**
      * @Route("/page-slug/{slug}", name="blog_by_slug")
      */
-    public function postBySLug($slug, DocumentManager $dm)
+    public function postBySLug(BlogPost $post, DocumentManager $dm)
     {
-        return $this->json(
-            $dm->getRepository(BlogPost::class)->findBy(['slug' => $slug])
-        );
+        //same like findOneBy(['slug'=>$slug])
+        return $this->json($post);
     }
 
     /**

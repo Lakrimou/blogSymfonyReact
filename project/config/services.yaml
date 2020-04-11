@@ -25,5 +25,10 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    doctrine_mongo_db_param_converter:
+        class: 'Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DoctrineParamConverter'
+        arguments: ['@doctrine_mongodb']
+        tags: [request.param_converter]
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
