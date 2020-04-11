@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
-use App\Entity\BlogPost;
+use App\Document\BlogPost;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
 
 /**
  * @method BlogPost|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,12 +14,15 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method BlogPost[]    findAll()
  * @method BlogPost[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class BlogPostRepository extends ServiceEntityRepository
+class BlogPostRepository extends DocumentRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(DocumentManager $dm)
     {
-        parent::__construct($registry, BlogPost::class);
+        $uow = $dm->getUnitOfWork();
+        $classMetaData = $dm->getClassMetadata(BlogPost::class);
+        parent::__construct($dm, $uow, $classMetaData);
     }
+
 
     // /**
     //  * @return BlogPost[] Returns an array of BlogPost objects
