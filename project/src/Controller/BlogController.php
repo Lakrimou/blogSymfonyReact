@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -37,9 +38,8 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/page/{id}", name="blog_by_id")
-     * @ParamConverter("post", class="App:BlogPost")
      */
-    public function post($post, DocumentManager $dm)
+    public function post(BlogPost $post, DocumentManager $dm)
     {
         return $this->json($post);
 
@@ -64,5 +64,15 @@ class BlogController extends AbstractController
         $dm->persist($blogPost);
         $dm->flush();
         return $this->json($blogPost);
+    }
+
+    /**
+     * @Route("/post/{id}", name="blog_delete", methods={"DELETE"})
+     */
+    public function delete(BlogPost $post, DocumentManager $dm)
+    {
+        $dm->remove($post);
+        $dm->flush();
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 }
