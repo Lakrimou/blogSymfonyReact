@@ -2,44 +2,50 @@
 
 namespace App\Document;
 
-use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @MongoDB\Document(repositoryClass="App\Repository\BlogPostRepository")
+ * @ApiResource
+ * @ODM\Document(repositoryClass="App\Repository\BlogPostRepository")
  */
 class BlogPost
 {
     /**
-     * @MongoDB\Id
+     * @ODM\Id(strategy="INCREMENT", type="integer")
+     * @ApiProperty(identifier=true)
      */
-    private $id;
+    public $id;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
+     * @Assert\NotBlank()
      */
-    private $title;
+    public $title;
 
     /**
-     * @MongoDB\Field(type="date")
+     * @ODM\Field(type="date")
      */
-    private $published;
+    public $published;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
      */
-    private $content;
+    public $content;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
      */
-    private $author;
+    public $author;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @ODM\Field(type="string")
      */
-    private $slug;
+    public $slug;
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }

@@ -1,0 +1,10 @@
+api_platform:
+    mapping:
+        paths: ['%kernel.project_dir%/src/Document']
+    patch_formats:
+        json: ['application/merge-patch+json']
+    swagger:
+        versions: [3]
+    doctrine_mongodb_odm:
+        # To enable or disable Doctrine MongoDB ODM support.
+        enabled: true
