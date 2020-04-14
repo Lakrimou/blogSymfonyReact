@@ -3,13 +3,14 @@
 namespace App\Document;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource()
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ODM\Document(repositoryClass="App\Repository\UserRepository")
  */
 class User
 {
@@ -37,6 +38,22 @@ class User
      * @ODM\Field(type="string")
      */
     private $email;
+
+    /**
+     * @@ODM\ReferenceMany(targetDocument="App\Document\BlogPost", mappedBy="author")
+     */
+    private $posts;
+
+    /**
+     * @@ODM\ReferenceMany(targetDocument="App\Document\Comment", mappedBy="author")
+     */
+    private $comments;
+
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,4 +107,22 @@ class User
 
         return $this;
     }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+
 }

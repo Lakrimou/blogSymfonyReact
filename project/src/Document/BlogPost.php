@@ -36,7 +36,7 @@ class BlogPost
     public $content;
 
     /**
-     * @ODM\Field(type="string")
+     * @ODM\ReferenceOne(targetDocument="App\Document\User", inversedBy="posts")
      */
     public $author;
 
@@ -82,18 +82,6 @@ class BlogPost
     public function setContent(string $content): self
     {
         $this->content = $content;
-
-        return $this;
-    }
-
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
 
         return $this;
     }

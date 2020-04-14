@@ -29,6 +29,11 @@ class Comment
      */
     private $published;
 
+    /**
+     * @ODM\ReferenceOne(targetDocument="App\Document\User", inversedBy="comments")
+     */
+    public $author;
+
     public function getId(): ?int
     {
         return $this->id;
