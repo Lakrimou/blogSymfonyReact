@@ -40,6 +40,13 @@ class BlogPost
      */
     public $author;
 
+    public function setAuthor($author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
     /**
      * @ODM\Field(type="string")
      */
