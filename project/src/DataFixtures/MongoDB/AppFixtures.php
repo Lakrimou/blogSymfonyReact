@@ -43,6 +43,14 @@ class AppFixtures extends Fixture
         $blogPost->setSlug('a-third-post');
         $manager->persist($blogPost);
 
+        $blogPost = new BlogPost();
+        $blogPost->setTitle('A third post !');
+        $blogPost->setPublished(new \DateTime('2020-04-12 03:35'));
+        $blogPost->setContent('Post text!');
+        $blogPost->setAuthor($user);
+        $blogPost->setSlug('a-third-post');
+        $manager->persist($blogPost);
+
         $manager->flush();
     }
 
